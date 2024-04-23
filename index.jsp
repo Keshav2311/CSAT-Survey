@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+  <%@ page import = "java.io.*,java.util.*,java.sql.*"%>
 <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+
+     
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 
@@ -17,30 +20,31 @@
 	<sql:setDataSource var = "options" driver = "org.postgresql.Driver" url = "jdbc:postgresql://127.0.0.1:5433/csat_survey" user = "postgres"  password = "727601"/>
 	<sql:query dataSource = "${options}" var = "option">
             SELECT * from account_info;
-  </sql:query>
-	<form action="SubmitServlet" method="post" id="questions">
-    <table border = "2" align="center" width="50%">
-  	  <tr>
-  		  <th align="center" bgcolor="grey" style="color: white" colspan="6"><h1>CSAT Survey ADMIN Page</h1></th>
-  		</tr>
-  		<tr>
-  			<th align="right" id="q">Account: </th>
-  			<td>
-  				<select name="accountId" id="accountId" onchange="getProjects()">
-  					<option value="0">Select Account</option>
-  					<c:forEach items="${option.rows}" var="row">
-  					<option value="${row.id}">${row.account_name}</option>
-  					</c:forEach>
-  				</select>
-  			</td>	
-  		</tr>
-  		<tr>
-  			<th align="right">Project: </th>
-  			<td id="projectDropdown">
-  				<select name="projectId" id="projectId" onchange="getQuestions()">
-   					<option value="0">Select Project</option>
-  	  		</select>
-  			</td>
+    </sql:query>
+	
+  	<form action="SubmitServlet" method="post" id="questions">
+  		<table border = "2" align="center" width="50%">
+  			<tr>
+  				<th align="center" bgcolor="grey" style="color: white" colspan="6"><h1>CSAT Survey ADMIN Page</h1></th>
+  			</tr>
+  			<tr>
+  				<th align="right" id="q">Account: </th>
+  				<td>
+  					<select name="accountId" id="accountId" onchange="getProjects()">
+  						<option value="0">Select Account</option>
+  						<c:forEach items="${option.rows}" var="row">
+  							<option value="${row.id}">${row.account_name}</option>
+  						</c:forEach>
+  					</select>
+  				</td>	
+  			</tr>
+  			<tr>
+  				<th align="right">Project: </th>
+  				<td id="projectDropdown">
+  					<select name="projectId" id="projectId" onchange="getQuestions()">
+   						<option value="0">Select Project</option>
+  	  				</select>
+  				</td>
   			</tr>
   			<tr>
   				<th align="right" id="y">Account Head:</th>
@@ -78,7 +82,8 @@
   				<th align="right">*</th>
   				<td align="center">
   					<div colspan = "6" id="container" name="container"></div>
-  				</td>	
+  				</td>
+  				
   			</tr>
   			<tr>
   				<td colspan="3" align="center">
@@ -248,6 +253,16 @@ function handle1SecondResponse(responseText){
             //console.log("Question ID: " + key + ", Question: " + question);
         }
     }
+    //removeButton.onclick = function(){
+    	//event.preventDefault();
+    	//container.removeChild(textbox);
+    	//container.removeChild(removeButton);
+    	//form.removeChild(textbox);
+    //}
+    
+    
+    
+
 }
 
 </script>
