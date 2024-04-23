@@ -1,3 +1,6 @@
+This is just all create statements of all the tables that are included in pgAdmin4.
+
+
 -- Table: public.account_info
 
 -- DROP TABLE IF EXISTS public.account_info;
