@@ -1,0 +1,160 @@
+-- Table: public.account_info
+
+-- DROP TABLE IF EXISTS public.account_info;
+
+CREATE TABLE IF NOT EXISTS public.account_info
+(
+    id integer NOT NULL DEFAULT nextval('account_info_id_seq'::regclass),
+    account_name character varying(200) COLLATE pg_catalog."default",
+    vertical_name character varying(200) COLLATE pg_catalog."default",
+    account_head_id integer NOT NULL,
+    CONSTRAINT account_info_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_account_head_id FOREIGN KEY (account_head_id)
+        REFERENCES public.user_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.account_info
+    OWNER to postgres;
+
+
+
+-- Table: public.project_csat_questions
+
+-- DROP TABLE IF EXISTS public.project_csat_questions;
+
+CREATE TABLE IF NOT EXISTS public.project_csat_questions
+(
+    id integer NOT NULL DEFAULT nextval('project_csat_questions_id_seq'::regclass),
+    csat_request_id integer,
+    questions character varying(2000) COLLATE pg_catalog."default",
+    project_id integer,
+    CONSTRAINT project_csat_questions_pkey PRIMARY KEY (id),
+    CONSTRAINT project_csat_questions_project_id_fkey FOREIGN KEY (project_id)
+        REFERENCES public.project_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.project_csat_questions
+    OWNER to postgres;
+
+
+
+-- Table: public.project_csat_request_info
+
+-- DROP TABLE IF EXISTS public.project_csat_request_info;
+
+CREATE TABLE IF NOT EXISTS public.project_csat_request_info
+(
+    id integer NOT NULL DEFAULT nextval('project_csat_request_info_id_seq'::regclass),
+    account_id integer NOT NULL,
+    project_id integer NOT NULL,
+    csat_duration integer NOT NULL,
+    customer_id integer NOT NULL,
+    CONSTRAINT project_csat_request_info_pkey PRIMARY KEY (id),
+    CONSTRAINT project_csat_request_info_account_id_fkey FOREIGN KEY (account_id)
+        REFERENCES public.account_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT project_csat_request_info_customer_id_fkey FOREIGN KEY (customer_id)
+        REFERENCES public.project_customer_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT project_csat_request_info_project_id_fkey FOREIGN KEY (project_id)
+        REFERENCES public.project_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.project_csat_request_info
+    OWNER to postgres;
+
+
+
+-- Table: public.project_customer_info
+
+-- DROP TABLE IF EXISTS public.project_customer_info;
+
+CREATE TABLE IF NOT EXISTS public.project_customer_info
+(
+    id integer NOT NULL,
+    project_id integer NOT NULL DEFAULT nextval('project_customer_info_project_id_seq'::regclass),
+    customer_id integer NOT NULL,
+    is_active character(1) COLLATE pg_catalog."default",
+    CONSTRAINT project_customer_info_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_customer_id FOREIGN KEY (customer_id)
+        REFERENCES public.user_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.project_customer_info
+    OWNER to postgres;
+
+
+
+-- Table: public.project_info
+
+-- DROP TABLE IF EXISTS public.project_info;
+
+CREATE TABLE IF NOT EXISTS public.project_info
+(
+    id integer NOT NULL DEFAULT nextval('project_info_id_seq'::regclass),
+    account_id integer,
+    project_name character varying(200) COLLATE pg_catalog."default",
+    project_started_date date,
+    project_end_date date,
+    is_active character(1) COLLATE pg_catalog."default",
+    project_progress_status character(1) COLLATE pg_catalog."default",
+    pm_id integer NOT NULL,
+    dm_id integer NOT NULL,
+    CONSTRAINT project_info_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_account_id FOREIGN KEY (account_id)
+        REFERENCES public.account_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_dm_id FOREIGN KEY (dm_id)
+        REFERENCES public.user_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_pm_id FOREIGN KEY (pm_id)
+        REFERENCES public.user_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.project_info
+    OWNER to postgres;
+
+
+
+-- Table: public.user_info
+
+-- DROP TABLE IF EXISTS public.user_info;
+
+CREATE TABLE IF NOT EXISTS public.user_info
+(
+    id integer NOT NULL DEFAULT nextval('user_info_id_seq'::regclass),
+    user_name character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    user_type integer NOT NULL,
+    is_active character(1) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT user_info_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.user_info
+    OWNER to postgres;
