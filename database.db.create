@@ -161,3 +161,26 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.user_info
     OWNER to postgres;
+
+
+-- Table: public.project_csat_overall_feedback
+
+-- DROP TABLE IF EXISTS public.project_csat_overall_feedback;
+
+CREATE TABLE IF NOT EXISTS public.project_csat_overall_feedback
+(
+    id integer NOT NULL DEFAULT nextval('project_csat_overall_feedback_id_seq'::regclass),
+    csat_request_id integer,
+    customer_feedback character varying(4000) COLLATE pg_catalog."default",
+    rcvd_date date,
+    CONSTRAINT project_csat_overall_feedback_pkey PRIMARY KEY (id),
+    CONSTRAINT project_csat_overall_feedback_csat_request_id_fkey FOREIGN KEY (csat_request_id)
+        REFERENCES public.project_csat_request_info (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.project_csat_overall_feedback
+    OWNER to postgres;
