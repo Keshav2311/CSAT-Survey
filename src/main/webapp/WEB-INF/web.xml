@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+ 	<display-name>CSAT.Survey1</display-name>
+  	<welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+    	 <welcome-file>ratings.jsp</welcome-file>
+  	</welcome-file-list>
+  	<!--<servlet>
+    	<description></description>
+    	<servlet-name>AccountServlet</servlet-name>
+    	<servlet-class>com.impelsys.web.AccountServlet</servlet-class>
+    	 <load-on-startup>1</load-on-startup>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>AccountServlet</servlet-name>
+    	<url-pattern>/AccountServlet</url-pattern>
+  	</servlet-mapping>
+  	<servlet>
+    	<description></description>
+    	<servlet-name>SubmitServlet</servlet-name>
+    	<servlet-class>com.impelsys.account.web.SubmitServlet</servlet-class>
+    	 <load-on-startup>1</load-on-startup>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>SubmitServlet</servlet-name>
+    	<url-pattern>/SubmitServlet</url-pattern>
+  	</servlet-mapping> -->
+</web-app>
